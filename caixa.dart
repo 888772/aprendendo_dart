@@ -9,8 +9,9 @@ class Conta {
     saldo += valor;
   }
 
-  void debitar({required double valor}) { //METODO NOMEADO
+  bool debitar({required double valor}) { //METODO NOMEADO
     saldo -= valor;
+    return true;
   }
 }
 
@@ -31,9 +32,12 @@ class ContaPoupanca extends Conta {
   });
   
   @override //MUDAR UM COMPORTAMENTO DE ALGUM METODO DE CIMA.
-  void debitar({required double valor}) {
+  bool debitar({required double valor}) {
     if (valor <= saldo) {
       saldo -= valor;
+      return true;
+    } else {
+      return false;
     }
   }
 }
@@ -45,8 +49,10 @@ class Caixa {
     required Conta destino,
     required double valor,
   }){
-    origem.debitar(valor: valor); // valor: valor porquer metodo é nomeado
-    destino.creditar(valor: valor); // valor: valor porquer metodo é nomeado
+    bool deuCerto = origem.debitar(valor: valor); // valor: valor porquer metodo é nomeado
+    if (deuCerto) {
+      destino.creditar(valor: valor); // valor: valor porquer metodo é nomeado
+    }
   }
   
   void depositar({
@@ -96,12 +102,10 @@ void main() {
   print("TRANSFERENCIA FEITA!!\n");
   
   print("SALDO GUI");
-  print(c1.cliente);
   print(c1.saldo);
   print("\n");
   
   print("SALDO CECI");
-  print(c2.cliente);
   print(c2.saldo);
   print("\n");
 }
