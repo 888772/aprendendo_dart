@@ -50,7 +50,7 @@ class Caixa {
     required double valor,
   }){
     bool deuCerto = origem.debitar(valor: valor); // valor: valor porquer metodo é nomeado
-    if (deuCerto) {
+    if (deuCerto == true) {
       destino.creditar(valor: valor); // valor: valor porquer metodo é nomeado
     }
   }
